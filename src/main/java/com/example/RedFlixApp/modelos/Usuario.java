@@ -104,4 +104,17 @@ public class Usuario {
         }
 
     }
+    public Usuario getDatos(String username, UsuarioRepositorio usuario)
+    {
+        Optional<Usuario> usuarioConsulta = usuario.findById(username);
+        if(usuarioConsulta.isPresent())
+        {
+            return usuarioConsulta.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
 }

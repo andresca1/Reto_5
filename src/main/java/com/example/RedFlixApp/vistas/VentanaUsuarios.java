@@ -244,6 +244,11 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         jButtonConsultar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonConsultar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonConsultar.setText("Consultar");
+        jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConsultarActionPerformed(evt);
+            }
+        });
 
         jButtonActualizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonActualizar.setForeground(new java.awt.Color(255, 255, 255));
@@ -257,10 +262,15 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         jButtonBorrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonBorrar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBorrar.setText("Borrar");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
+        jTextArea1.setRows(3);
         jTextArea1.setAutoscrolls(false);
         jScrollPaneSalida.setViewportView(jTextArea1);
 
@@ -271,7 +281,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 379, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(109, 109, 109)
@@ -370,13 +380,13 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         } else if (email.contains("@")) {
             if (tryParseInt(celular)) {
                 if (!NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
-                    NewUsuario.setEmail(jTextFieldEmail.getText());
-                    NewUsuario.setId_username(jTextFieldUsername.getText());
-                    NewUsuario.setNombre(jTextFieldNombres.getText());
-                    NewUsuario.setApellido(jTextFieldApellidos.getText());
-                    NewUsuario.setFecha_nacimiento(jTextFieldFecha.getText());
-                    NewUsuario.setCelular(jTextFieldCelular.getText());
-                    NewUsuario.setContrasenia(jPasswordField1.getText());
+                    NewUsuario.setEmail(email);
+                    NewUsuario.setId_username(usuario);
+                    NewUsuario.setNombre(nombre);
+                    NewUsuario.setApellido(apellidos);
+                    NewUsuario.setFecha_nacimiento(fecha);
+                    NewUsuario.setCelular(celular);
+                    NewUsuario.setContrasenia(contrasenia);
 
                     try {
                         usuarioRepositorio.save(NewUsuario);
@@ -398,7 +408,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
 
         } else {
-            jTextArea1.setText("Email no válido");
+            jTextArea1.setText("Email no válido.");
         }
 
 
@@ -406,6 +416,53 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         // TODO add your handling code here:
+        
+        Usuario NewUsuario = new Usuario();
+        String email = jTextFieldEmail.getText();
+        String usuario = jTextFieldUsername.getText();
+        String nombre = jTextFieldNombres.getText();
+        String apellidos = jTextFieldApellidos.getText();
+        String fecha = jTextFieldFecha.getText();
+        String celular = jTextFieldCelular.getText();
+        String contrasenia = jPasswordField1.getText();
+        if (email.isEmpty() || usuario.isEmpty() || nombre.isEmpty()
+                || apellidos.isEmpty() || fecha.isEmpty() || celular.isEmpty()
+                || contrasenia.isEmpty()) {
+            jTextArea1.setText("Datos incompletos!!!");
+
+        } else if (email.contains("@")) {
+            if (tryParseInt(celular)) {
+                if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
+                    NewUsuario.setEmail(email);
+                    NewUsuario.setId_username(usuario);
+                    NewUsuario.setNombre(nombre);
+                    NewUsuario.setApellido(apellidos);
+                    NewUsuario.setFecha_nacimiento(fecha);
+                    NewUsuario.setCelular(celular);
+                    NewUsuario.setContrasenia(contrasenia);
+
+                    try {
+                        usuarioRepositorio.save(NewUsuario);
+                        jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText());
+                        //MyRunner.crearUsuario(NewUsuario);ç
+    //                    MyRunner runner = new MyRunner();
+    //                    runner.crearUsuario(NewUsuario);
+
+                    } catch (Exception e) {
+                        jTextArea1.setText("Error al conectar con la BD");
+                    }
+                    
+                } else {
+                    jTextArea1.setText("Lo sentimos el usuario creado.");
+                }
+
+            } else {
+                jTextArea1.setText("Número de celular inválido!!!");
+            }
+
+        } else {
+            jTextArea1.setText("Email no válido.");
+        }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -414,6 +471,87 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         ventanaPrincipal.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
+        // TODO add your handling code here:
+        String username = jTextFieldUsername.getText();
+        Usuario NewUsuario = new Usuario();
+        if(!username.isEmpty())
+        {
+            if(NewUsuario.validarUsuario(username, usuarioRepositorio))
+            {
+                Usuario consultaUsuario = NewUsuario.getDatos(username, usuarioRepositorio);
+                jTextFieldUsername.setText(consultaUsuario.getId_username());
+                jTextFieldNombres.setText(consultaUsuario.getNombre());
+                jTextFieldApellidos.setText(consultaUsuario.getApellido());
+                jTextFieldEmail.setText(consultaUsuario.getEmail());
+                jTextFieldFecha.setText(consultaUsuario.getFecha_nacimiento());
+                jTextFieldCelular.setText(consultaUsuario.getCelular());
+                jPasswordField1.setText(consultaUsuario.getContrasenia());
+                jTextArea1.setText("El usuario " + username + " se encuentra registrado.");
+            }
+            else
+            {
+                jTextArea1.setText("Lo sentimos el usuario no se encuentra creado.");
+            }
+        }
+        else
+        {
+            jTextArea1.setText("Ingrese usuario a consultar.");
+        }
+        
+    }//GEN-LAST:event_jButtonConsultarActionPerformed
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        // TODO add your handling code here:
+        
+        Usuario NewUsuario = new Usuario();
+        String email = jTextFieldEmail.getText();
+        String usuario = jTextFieldUsername.getText();
+        String nombre = jTextFieldNombres.getText();
+        String apellidos = jTextFieldApellidos.getText();
+        String fecha = jTextFieldFecha.getText();
+        String celular = jTextFieldCelular.getText();
+        String contrasenia = jPasswordField1.getText();
+        if (email.isEmpty() || usuario.isEmpty() || nombre.isEmpty()
+                || apellidos.isEmpty() || fecha.isEmpty() || celular.isEmpty()
+                || contrasenia.isEmpty()) {
+            jTextArea1.setText("Datos incompletos!!!");
+
+        } else if (email.contains("@")) {
+            if (tryParseInt(celular)) {
+                if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
+                    NewUsuario.setEmail(email);
+                    NewUsuario.setId_username(usuario);
+                    NewUsuario.setNombre(nombre);
+                    NewUsuario.setApellido(apellidos);
+                    NewUsuario.setFecha_nacimiento(fecha);
+                    NewUsuario.setCelular(celular);
+                    NewUsuario.setContrasenia(contrasenia);
+
+                    try {
+                        usuarioRepositorio.save(NewUsuario);
+                        jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText());
+                        //MyRunner.crearUsuario(NewUsuario);ç
+    //                    MyRunner runner = new MyRunner();
+    //                    runner.crearUsuario(NewUsuario);
+
+                    } catch (Exception e) {
+                        jTextArea1.setText("Error al conectar con la BD");
+                    }
+                    
+                } else {
+                    jTextArea1.setText("Lo sentimos el usuario creado.");
+                }
+
+            } else {
+                jTextArea1.setText("Número de celular inválido!!!");
+            }
+
+        } else {
+            jTextArea1.setText("Email no válido.");
+        }
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     /**
      * @param args the command line arguments
