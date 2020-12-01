@@ -38,6 +38,16 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             return false;
         }
     }
+    public void clear()
+    {
+        jTextFieldEmail.setText("");
+        jTextFieldUsername.setText("");
+        jTextFieldNombres.setText("");
+        jTextFieldApellidos.setText("");
+        jTextFieldFecha.setText("");
+        jTextFieldCelular.setText("");
+        jPasswordField1.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -492,7 +502,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
             else
             {
-                jTextArea1.setText("Lo sentimos el usuario no se encuentra creado.");
+                jTextArea1.setText("Lo sentimos el usuario" + username + "no se encuentra creado.");
             }
         }
         else
@@ -504,53 +514,29 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         // TODO add your handling code here:
-        
-        Usuario NewUsuario = new Usuario();
-        String email = jTextFieldEmail.getText();
-        String usuario = jTextFieldUsername.getText();
-        String nombre = jTextFieldNombres.getText();
-        String apellidos = jTextFieldApellidos.getText();
-        String fecha = jTextFieldFecha.getText();
-        String celular = jTextFieldCelular.getText();
-        String contrasenia = jPasswordField1.getText();
-        if (email.isEmpty() || usuario.isEmpty() || nombre.isEmpty()
-                || apellidos.isEmpty() || fecha.isEmpty() || celular.isEmpty()
-                || contrasenia.isEmpty()) {
-            jTextArea1.setText("Datos incompletos!!!");
-
-        } else if (email.contains("@")) {
-            if (tryParseInt(celular)) {
-                if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
-                    NewUsuario.setEmail(email);
-                    NewUsuario.setId_username(usuario);
-                    NewUsuario.setNombre(nombre);
-                    NewUsuario.setApellido(apellidos);
-                    NewUsuario.setFecha_nacimiento(fecha);
-                    NewUsuario.setCelular(celular);
-                    NewUsuario.setContrasenia(contrasenia);
-
-                    try {
-                        usuarioRepositorio.save(NewUsuario);
-                        jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText());
-                        //MyRunner.crearUsuario(NewUsuario);ç
-    //                    MyRunner runner = new MyRunner();
-    //                    runner.crearUsuario(NewUsuario);
-
-                    } catch (Exception e) {
-                        jTextArea1.setText("Error al conectar con la BD");
-                    }
-                    
-                } else {
-                    jTextArea1.setText("Lo sentimos el usuario creado.");
-                }
-
-            } else {
-                jTextArea1.setText("Número de celular inválido!!!");
-            }
-
-        } else {
-            jTextArea1.setText("Email no válido.");
-        }
+       String username = jTextFieldUsername.getText();
+       Usuario usuario = new Usuario();
+       if(!username.isEmpty())
+       {
+           if(usuario.validarUsuario(username, usuarioRepositorio))
+           {
+               try {
+                   usuarioRepositorio.deleteById(username);
+                   jTextArea1.setText("Usuario " + username + " eliminado correctamente.");
+                   //clear();
+               } catch (Exception e) {
+                   jTextArea1.setText("Error al conectar con la BD");
+               }
+           }
+           else
+           {
+               jTextArea1.setText("Lo sentimos el usuario" + username +" no se encuentra creado.");
+           }
+       }
+       else
+       {
+           jTextArea1.setText("Ingrese username a eliminar.");
+       }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     /**
