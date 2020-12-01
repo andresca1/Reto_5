@@ -23,19 +23,23 @@ public class MyRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         logger.info("Antes: # de canciones: {}", UsuarioRepositorio.count());
-    /*    Usuario NewUsuario = new Usuario();
-        NewUsuario.setId_username("WlsonDark");
-        NewUsuario.setNombre("Wilson");
-        NewUsuario.setApellido("Andrade");
-        NewUsuario.setFecha_nacimiento("1990-12-22");
-        NewUsuario.setCelular("3154771111");
-        NewUsuario.setContrasenia("123456");
-        NewUsuario.setEmail("wilaonandrade@gmail.com");
-        UsuarioRepositorio.save(NewUsuario); */
+//        Usuario NewUsuario = new Usuario();
+//        NewUsuario.setId_username("WlsonDark");
+//        NewUsuario.setNombre("Wilson");
+//        NewUsuario.setApellido("Andrade");
+//        NewUsuario.setFecha_nacimiento("1990-12-22");
+//        NewUsuario.setCelular("3154771111");
+//        NewUsuario.setContrasenia("123456");
+//        NewUsuario.setEmail("wilaonandrade@gmail.com");
+//        UsuarioRepositorio.save(NewUsuario);
         
         
     
 
+    }
+    
+    public void crearUsuario (Usuario usuario) {
+        UsuarioRepositorio.save(usuario);
     }
 
 }

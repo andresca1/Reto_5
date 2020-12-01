@@ -1,5 +1,7 @@
 package com.example.RedFlixApp.modelos;
 
+import com.example.RedFlixApp.repositorios.UsuarioRepositorio;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,24 +12,25 @@ import javax.persistence.Table;
  * @author Andrés Candela
  */
 @Entity                     //La clase Usuario es una Entidad
-@Table (name = "usuario")  //Asociada a una tabla (MySQL) llamada "Usuario" 
+@Table(name = "usuario")  //Asociada a una tabla (MySQL) llamada "Usuario" 
 public class Usuario {
+
     // Clase-Entidad relacionada con Atributos-Columnas 
     //El Id será el nombre del usuario, también es posible generar uno aparte y diferente con @GeneratedValue
     @Id
-    @Column (name="id_username")
+    @Column(name = "id_username")
     String id_username;
-    @Column (name="nombre")
+    @Column(name = "nombre")
     String nombre;
-    @Column (name="apellido")
+    @Column(name = "apellido")
     String apellido;
-    @Column (name="email")
+    @Column(name = "email")
     String email;
-    @Column (name="celular")
+    @Column(name = "celular")
     String celular;
-    @Column (name="contrasenia")
+    @Column(name = "contrasenia")
     String contrasenia;
-    @Column (name="fecha_nacimiento")
+    @Column(name = "fecha_nacimiento")
     String fecha_nacimiento;
 
     public String getId_username() {
@@ -91,5 +94,14 @@ public class Usuario {
         return "Usuario{" + "id_username=" + id_username + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", celular=" + celular + ", contrasenia=" + contrasenia + ", fecha_nacimiento=" + fecha_nacimiento + '}';
     }
 
+    public boolean validarUsuario(String username, UsuarioRepositorio usuario) {
+        Optional<Usuario> usuarioConsulta = usuario.findById(username);
+        //select * from Usuarios where nom_usuario = "Laura";
+        if (usuarioConsulta.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
 
+    }
 }
