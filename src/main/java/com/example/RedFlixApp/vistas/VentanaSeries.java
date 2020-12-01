@@ -15,12 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Andrés Candela
  */
 public class VentanaSeries extends javax.swing.JFrame {
+    
+    SerieRepositorio serieRepositorio;
 
     /**
      * Creates new form VentanaSeries
      */
-    @Autowired
-    private SerieRepositorio serieRepositorio;
+
     
     public VentanaSeries() {
         initComponents();
@@ -141,6 +142,11 @@ public class VentanaSeries extends javax.swing.JFrame {
         jButtonBorrar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBorrar.setText("Borrar");
         jButtonBorrar.setActionCommand("Consultar");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
@@ -242,6 +248,29 @@ public class VentanaSeries extends javax.swing.JFrame {
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
         // TODO add your handling code here:
+        String serieName = jTextFieldTitulo.getText();
+        Serie NewSerie = new Serie();
+        if(!serieName.isEmpty())
+        {
+            if(NewSerie.validarSerie(serieName, serieRepositorio))
+            {
+                Serie consultaSerie = NewSerie.getDatos(serieName, serieRepositorio);
+                jTextFieldTitulo.setText(consultaSerie.getTitulo());
+                jTextFieldTemporadas.setText(consultaSerie.getNum_temporadas());
+                jTextFieldEpisodios.setText(consultaSerie.getNum_episodios());
+                
+                jTextArea1.setText("La serie " + serieName + " se encuentra registrada.");
+            }
+            else
+            {
+                jTextArea1.setText("Lo sentimos, la serie "+serieName +" no se encuentra registrada.");
+            }
+        }
+        else
+        {
+            jTextArea1.setText("Ingrese la serie a consultar.");
+        }
+              
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
@@ -297,42 +326,69 @@ public class VentanaSeries extends javax.swing.JFrame {
             jTextArea1.setText("La serie no se encuentra registrada, por lo tanto no se puede actualizar");
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        // TODO add your handling code here:
+       String serieName = jTextFieldTitulo.getText();
+       Serie usuario = new Serie();
+       if(!serieName.isEmpty())
+       {
+           if(usuario.validarSerie(serieName, serieRepositorio))
+           {
+               try {
+                   serieRepositorio.deleteById(serieName);
+                   jTextArea1.setText("Serie " +serieName + " eliminada correctamente.");
+                   //clear();
+               } catch (Exception e) {
+                   jTextArea1.setText("Error al conectar con la BD");
+               }
+           }
+           else
+           {
+               jTextArea1.setText("Lo sentimos la serie " + serieName +" no se encuentra creada.");
+           }
+       }
+       else
+       {
+           jTextArea1.setText("Ingrese el título de la serie a eliminar.");
+       }
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
     
     
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaSeries().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new VentanaSeries().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton5;
