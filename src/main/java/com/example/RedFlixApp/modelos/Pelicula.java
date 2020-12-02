@@ -5,6 +5,8 @@ package com.example.RedFlixApp.modelos;
  *
  * @author Andrés Candela
  */
+import com.example.RedFlixApp.repositorios.PeliculaRepositorio;
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +17,9 @@ import javax.persistence.Table;
 @Table (name="Pelicula")
 public class Pelicula {
     @Id
-    @GeneratedValue
-    @Column (name="id_pelicula")
-    Integer id_pelicula;
+//    @GeneratedValue
+//    @Column (name="id_pelicula")
+//    Integer id_pelicula;
     @Column (name="titulo")
     String titulo;
     @Column (name="resumen")
@@ -27,13 +29,13 @@ public class Pelicula {
     @Column (name="nombre_director")
     String nombre_director;
 
-    public Integer getId_pelicula() {
-        return id_pelicula;
-    }
+//    public Integer getId_pelicula() {
+//        return id_pelicula;
+//    }
 
-    public void setId_pelicula(Integer id_pelicula) {
-        this.id_pelicula = id_pelicula;
-    }
+//    public void setId_pelicula(Integer id_pelicula) {
+//        this.id_pelicula = id_pelicula;
+//    }
 
     public String getTitulo() {
         return titulo;
@@ -69,10 +71,19 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return "Pelicula{" + "id_pelicula=" + id_pelicula + ", titulo=" + titulo + ", resumen=" + resumen + ", anio=" + anio + ", nombre_director=" + nombre_director + '}';
+        return "Pelicula{titulo=" + titulo + ", resumen=" + resumen + ", anio=" + anio + ", nombre_director=" + nombre_director + '}';
     }
     
-    
+    public boolean validarPelicula(String pelicula_name, PeliculaRepositorio pelicula) {
+       Optional<Pelicula> peliculaConsulta = pelicula.findById(pelicula_name);
+        //select * from Usuarios where nom_usuario = "Laura";
+        if (peliculaConsulta.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
     
     
 }
