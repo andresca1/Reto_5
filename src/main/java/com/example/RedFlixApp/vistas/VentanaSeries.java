@@ -351,7 +351,9 @@ public class VentanaSeries extends javax.swing.JFrame {
        else
        {
            jTextArea1.setText("Ingrese el título de la serie a eliminar.");
+           
        }
+       //Prueba porque me lo tiré asdfghj
     }//GEN-LAST:event_jButtonBorrarActionPerformed
     
     
