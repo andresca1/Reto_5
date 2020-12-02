@@ -146,6 +146,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jButtonAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcercaActionPerformed
         // TODO add your handling code here:
+        VentanaAcercaDe ventanaAcercaDe = new VentanaAcercaDe();
+        ventanaAcercaDe.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButtonAcercaActionPerformed
 
     private void jButtonSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSeriesActionPerformed
