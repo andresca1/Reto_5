@@ -85,5 +85,18 @@ public class Pelicula {
 
     }
     
+    public Pelicula getDatos(String titulo, PeliculaRepositorio pelicula)
+    {
+        Optional<Pelicula> peliculaConsulta = pelicula.findById(titulo);
+        if(peliculaConsulta.isPresent())
+        {
+            return peliculaConsulta.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     
 }

@@ -151,6 +151,11 @@ public class VentanaPeliculas extends javax.swing.JFrame {
         jButtonBorrar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonBorrar.setText("Borrar");
         jButtonBorrar.setActionCommand("Consultar");
+        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
@@ -165,7 +170,6 @@ public class VentanaPeliculas extends javax.swing.JFrame {
         jButtonConsultar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonConsultar.setForeground(new java.awt.Color(255, 255, 255));
         jButtonConsultar.setText("Consultar");
-        jButtonConsultar.setActionCommand("Consultar");
         jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConsultarActionPerformed(evt);
@@ -279,7 +283,7 @@ public class VentanaPeliculas extends javax.swing.JFrame {
 
             try {
                 peliculaRepositorio.save(NewPeliculas);
-                jTextArea1.setText("Se registró correctamente la pelicula" + jTextFieldTitulo.getText());
+                jTextArea1.setText("Se registró correctamente la pelicula " + jTextFieldTitulo.getText());
             } catch (Exception e) {
                 jTextArea1.setText("Error al conectar con la BD");
             }
@@ -323,6 +327,28 @@ public class VentanaPeliculas extends javax.swing.JFrame {
 
     private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
         // TODO add your handling code here:
+        String titulo = jTextFieldTitulo.getText();
+        Pelicula pelicula = new Pelicula();
+        if(!titulo.isEmpty())
+        {
+            if(pelicula.validarPelicula(titulo, peliculaRepositorio))
+            {
+                Pelicula peliculaConsulta = pelicula.getDatos(titulo, peliculaRepositorio);
+                jTextFieldResumen.setText(peliculaConsulta.getResumen());
+                jTextFieldDirector.setText(peliculaConsulta.getNombre_director());
+                jTextFieldAnio.setText(peliculaConsulta.getAnio().split("-")[0]);
+                jTextFieldTitulo.setText(peliculaConsulta.getTitulo());
+                jTextArea1.setText("La pelicula " + titulo + " está disponible.");
+            }
+            else
+            {
+                jTextArea1.setText("Lo sentimos la pelicula no se encuentra registrada.");
+            }
+        }
+        else
+        {
+            jTextArea1.setText("Ingrese titulo de la pelicula a consultar.");
+        }
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -332,6 +358,33 @@ public class VentanaPeliculas extends javax.swing.JFrame {
         this.setVisible(false);
          
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
+        // TODO add your handling code here:
+               String titulo = jTextFieldTitulo.getText();
+       Pelicula pelicula = new Pelicula();
+       if(!titulo.isEmpty())
+       {
+           if(pelicula.validarPelicula(titulo, peliculaRepositorio))
+           {
+               try {
+                   peliculaRepositorio.deleteById(titulo);
+                   jTextArea1.setText("Pelicula " + titulo + " eliminada correctamente.");
+                   //clear();
+               } catch (Exception e) {
+                   jTextArea1.setText("Error al conectar con la BD");
+               }
+           }
+           else
+           {
+               jTextArea1.setText("Lo sentimos la pelicula " + titulo +" no se encuentra registrada");
+           }
+       }
+       else
+       {
+           jTextArea1.setText("Ingrese titulo de pelicula a eliminar.");
+       }
+    }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     /**
     
