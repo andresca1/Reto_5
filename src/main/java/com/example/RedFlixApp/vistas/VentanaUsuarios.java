@@ -489,7 +489,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                     }
                     
                 } else {
-                    jTextArea1.setText("Lo sentimos el usuario creado.");
+                    jTextArea1.setText("Lo sentimos el usuario "+ usuario + " no se encuentra creado.");
                 }
 
             } else {
@@ -528,7 +528,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             }
             else
             {
-                jTextArea1.setText("Lo sentimos el usuario" + username + "no se encuentra creado.");
+                jTextArea1.setText("Lo sentimos el usuario " + username + " no se encuentra creado.");
             }
         }
         else
@@ -556,7 +556,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
            }
            else
            {
-               jTextArea1.setText("Lo sentimos el usuario" + username +" no se encuentra creado.");
+               jTextArea1.setText("Lo sentimos el usuario " + username +" no se encuentra creado.");
            }
        }
        else

@@ -306,14 +306,14 @@ public class VentanaSeries extends javax.swing.JFrame {
                 
                 try {
                     serieRepositorio.save(NewSerie);
-                    jTextArea1.setText("Se creó correctamente la serie " + jTextFieldTitulo.getText());
+                    jTextArea1.setText("Se creó correctamente la serie " + jTextFieldTitulo.getText() + ".");
                 } catch (Exception e) {
                 jTextArea1.setText("Error al conectar con la BD");
                 }
                 
                 
                }else {
-                     jTextArea1.setText("Lo sentimos la serie ya se encuentra registrada");
+                     jTextArea1.setText("Lo sentimos la serie ya se encuentra registrada.");
             }
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
@@ -334,7 +334,7 @@ public class VentanaSeries extends javax.swing.JFrame {
             
             try {
                 serieRepositorio.save(NewSerie);
-                jTextArea1.setText("Se actualizó correctamente la serie " + jTextFieldTitulo.getText());
+                jTextArea1.setText("Se actualizó correctamente la serie " + jTextFieldTitulo.getText() + ".");
                 } catch (Exception e) {
                 jTextArea1.setText("Error al conectar con la BD");
                 }

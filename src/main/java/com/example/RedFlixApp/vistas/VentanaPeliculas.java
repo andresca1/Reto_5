@@ -307,7 +307,7 @@ public class VentanaPeliculas extends javax.swing.JFrame {
 
             try {
                 peliculaRepositorio.save(NewPeliculas);
-                jTextAreaSalida.setText("Se registró correctamente la pelicula " + jTextFieldTitulo.getText());
+                jTextAreaSalida.setText("Se registró correctamente la pelicula " + jTextFieldTitulo.getText() + ".");
             } catch (Exception e) {
                 jTextAreaSalida.setText("Error al conectar con la BD");
             }
@@ -338,7 +338,7 @@ public class VentanaPeliculas extends javax.swing.JFrame {
 
             try {
                 peliculaRepositorio.save(NewPeliculas);
-                jTextAreaSalida.setText("Se actualizó correctamente la pelicula " + jTextFieldTitulo.getText());
+                jTextAreaSalida.setText("Se actualizó correctamente la pelicula " + jTextFieldTitulo.getText() + ".");
             } catch (Exception e) {
                 jTextAreaSalida.setText("Error al conectar con la BD");
             }
