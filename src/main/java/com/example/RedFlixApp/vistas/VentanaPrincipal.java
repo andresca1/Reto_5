@@ -28,7 +28,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Reto5Application.runServer(args);
         
         jLabel1.setText("");
-        jLabel1.setIcon(new javax.swing.ImageIcon(current_dir + "\\src\\main\\resources\\Logo.jpg"));
+        jLabel1.setIcon(new javax.swing.ImageIcon(current_dir + "\\src\\main\\resources\\RedFlix-logo.png"));
+        
+        jLabel2.setText("");
+        jLabel2.setIcon(new javax.swing.ImageIcon(current_dir + "\\src\\main\\resources\\MisionTic-logo.png"));
+
+
         
     }
 
@@ -47,6 +52,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButtonSeries = new javax.swing.JButton();
         jButtonAcerca = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -82,8 +88,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Logo Redflix");
         jLabel1.setToolTipText("");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Logo MisionTic");
+        jLabel2.setToolTipText("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -105,13 +115,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(65, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonUsuarios)
                     .addComponent(jButtonPeliculas)
@@ -213,6 +229,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSeries;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
