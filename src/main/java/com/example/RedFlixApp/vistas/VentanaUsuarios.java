@@ -414,7 +414,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             jTextArea1.setText("Datos incompletos!!!");
 
         } else if (email.contains("@")) {
-            if (tryParseInt(celular)) {
+            if (tryParseInt(celular) && celular.length() <= 10) {
                 if (!NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
                     NewUsuario.setEmail(email);
                     NewUsuario.setId_username(usuario);
@@ -467,7 +467,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             jTextArea1.setText("Datos incompletos!!!");
 
         } else if (email.contains("@")) {
-            if (tryParseInt(celular)) {
+            if (tryParseInt(celular)&& celular.length() <= 10) {
                 if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
                     NewUsuario.setEmail(email);
                     NewUsuario.setId_username(usuario);
