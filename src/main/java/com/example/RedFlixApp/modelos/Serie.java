@@ -74,5 +74,17 @@ public class Serie {
         }
 
     }
-    
+        public Serie getDatos(String serieName, SerieRepositorio serie)
+    {
+        Optional<Serie> serieConsulta = serie.findById(serieName);
+        if(serieConsulta.isPresent())
+        {
+            return serieConsulta.get();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
