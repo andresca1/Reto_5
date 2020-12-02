@@ -61,6 +61,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jButtonPeliculas.setText("Películas");
+        jButtonPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPeliculasActionPerformed(evt);
+            }
+        });
 
         jButtonSeries.setText("Series");
         jButtonSeries.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +162,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         ventanaSeries.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSeriesActionPerformed
+
+    private void jButtonPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPeliculasActionPerformed
+        // TODO add your handling code here:
+        VentanaPeliculas ventanaPeliculas = new VentanaPeliculas();
+        ventanaPeliculas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonPeliculasActionPerformed
 
     /**
      * @param args the command line arguments

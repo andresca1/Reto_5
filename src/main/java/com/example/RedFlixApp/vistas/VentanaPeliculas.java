@@ -262,37 +262,6 @@ public class VentanaPeliculas extends javax.swing.JFrame {
                               
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
         // TODO add your handling code here:
-//        Pelicula NewPeliculas = new Pelicula();
-//        String titulo = jTextFieldTitulo.getText();
-//        String resumen = jTextFieldResumen.getText();
-//        String anio = jTextFieldAnio.getText();
-//        String director = jTextFieldDirector.getText();
-//
-//        if (titulo.isEmpty() || resumen.isEmpty() || anio.isEmpty()|| director.isEmpty()){
-//            jTextArea1.setText("Datos incompletos!!!");
-//
-//        }else if (!NewPeliculas.validarPelicula(titulo, peliculaRepositorio)){
-//            NewPeliculas.setTitulo(jTextFieldTitulo.getText());
-//            NewPeliculas.setResumen(jTextFieldResumen.getText());
-//            NewPeliculas.setAnio(jTextFieldAnio.getText());
-//            NewPeliculas.setNombre_director(jTextFieldDirector.getText());
-//
-//            try {
-//                peliculaRepositorio.save(NewPeliculas);
-//                jTextArea1.setText("Se registró correctamente la pelicula" + jTextFieldTitulo.getText());
-//            } catch (Exception e) {
-//                jTextArea1.setText("Error al conectar con la BD");
-//            }
-//
-//    }
-//        else 
-//        {
-//            jTextArea1.setText("Lo sentimos la pelicula ya se encuentra registrada");
-//        }
-    }//GEN-LAST:event_jButtonCrearActionPerformed
-
-    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        // TODO add your handling code here:
         Pelicula NewPeliculas = new Pelicula();
         String titulo = jTextFieldTitulo.getText();
         String resumen = jTextFieldResumen.getText();
@@ -315,8 +284,39 @@ public class VentanaPeliculas extends javax.swing.JFrame {
                 jTextArea1.setText("Error al conectar con la BD");
             }
 
-        }else {
+    }
+        else 
+        {
             jTextArea1.setText("Lo sentimos la pelicula ya se encuentra registrada");
+        }
+    }//GEN-LAST:event_jButtonCrearActionPerformed
+
+    private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
+        // TODO add your handling code here:
+        Pelicula NewPeliculas = new Pelicula();
+        String titulo = jTextFieldTitulo.getText();
+        String resumen = jTextFieldResumen.getText();
+        String anio = jTextFieldAnio.getText();
+        String director = jTextFieldDirector.getText();
+
+        if (titulo.isEmpty() || resumen.isEmpty() || anio.isEmpty()|| director.isEmpty()){
+            jTextArea1.setText("Datos incompletos!!!");
+
+        }else if (NewPeliculas.validarPelicula(titulo, peliculaRepositorio)){
+            NewPeliculas.setTitulo(jTextFieldTitulo.getText());
+            NewPeliculas.setResumen(jTextFieldResumen.getText());
+            NewPeliculas.setAnio(jTextFieldAnio.getText());
+            NewPeliculas.setNombre_director(jTextFieldDirector.getText());
+
+            try {
+                peliculaRepositorio.save(NewPeliculas);
+                jTextArea1.setText("Se actualizó correctamente la pelicula " + jTextFieldTitulo.getText());
+            } catch (Exception e) {
+                jTextArea1.setText("Error al conectar con la BD");
+            }
+
+        }else {
+            jTextArea1.setText("Lo sentimos la pelicula no se encuentra registrada");
         }
         
     }//GEN-LAST:event_jButtonActualizarActionPerformed
@@ -334,7 +334,7 @@ public class VentanaPeliculas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
-     * @param args the command line arguments
+    
      */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
