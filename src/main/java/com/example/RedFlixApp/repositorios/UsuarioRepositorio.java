@@ -1,4 +1,3 @@
-
 package com.example.RedFlixApp.repositorios;
 
 import com.example.RedFlixApp.modelos.Usuario;
@@ -7,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Andrés Candela
+ * @author RedFlix16 Team
  */
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {

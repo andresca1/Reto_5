@@ -1,5 +1,10 @@
 package com.example.RedFlixApp.modelos;
 
+/**
+ *
+ * @author RedFlix16 Team
+ */
+
 import com.example.RedFlixApp.repositorios.UsuarioRepositorio;
 import java.util.Optional;
 import javax.persistence.Column;
@@ -7,10 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- *
- * @author Andrés Candela
- */
 @Entity                     //La clase Usuario es una Entidad
 @Table(name = "usuario")  //Asociada a una tabla (MySQL) llamada "Usuario" 
 public class Usuario {
@@ -24,7 +25,7 @@ public class Usuario {
     String nombre;
     @Column(name = "apellido")
     String apellido;
-    @Column(name = "email")
+    @Column (name = "email")
     String email;
     @Column(name = "celular")
     String celular;

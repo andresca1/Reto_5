@@ -3,7 +3,7 @@ package com.example.RedFlixApp.modelos;
 
 /**
  *
- * @author Andrés Candela
+ * @author RedFlix16 Team
  */
 import com.example.RedFlixApp.repositorios.SerieRepositorio;
 import java.util.Optional;

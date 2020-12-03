@@ -1,5 +1,10 @@
 package com.example.RedFlixApp;
 
+/**
+ *
+ * @author RedFlix16 Team
+ */
+
 import com.example.RedFlixApp.vistas.VentanaPrincipal;
 import com.example.RedFlixApp.vistas.VentanaUsuarios;
 import org.springframework.boot.SpringApplication;
@@ -12,21 +17,12 @@ import org.springframework.context.annotation.ComponentScan;
 public class Reto5Application {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(Reto5Application.class, args);
-                
                 VentanaPrincipal ventana = new VentanaPrincipal();
                 ventana.setVisible(true);
-//                  VentanaUsuarios ventanaU = new VentanaUsuarios();
-//                  ventanaU.setVisible(true);
 	}
         
         public static void runServer(String[] args) {
-            /*
-            ConfigurableApplicationContext ctx = new SpringApplicationBuilder(Application.class)
-                    .headless(false).run(args);
-            */
             SpringApplication.run(Reto5Application.class, args);
-            
         }
 
 }

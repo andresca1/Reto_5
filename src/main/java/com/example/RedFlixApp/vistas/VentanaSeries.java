@@ -5,15 +5,16 @@
  */
 package com.example.RedFlixApp.vistas;
 
+/**
+ *
+ * @author RedFlix16 Team
+ */
+
 import com.example.RedFlixApp.SpringContext;
 import com.example.RedFlixApp.modelos.Serie;
 import com.example.RedFlixApp.repositorios.SerieRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- *
- * @author Andrés Candela
- */
 public class VentanaSeries extends javax.swing.JFrame {
     
     SerieRepositorio serieRepositorio;
@@ -79,6 +80,7 @@ public class VentanaSeries extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/borrar-icon.png"))); // NOI18N
+        jButton2.setToolTipText("Limpiar formulario");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +172,7 @@ public class VentanaSeries extends javax.swing.JFrame {
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home.png"))); // NOI18N
         jButton5.setToolTipText("");
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton5.setFocusable(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -275,7 +278,7 @@ public class VentanaSeries extends javax.swing.JFrame {
                 jTextFieldTemporadas.setText(consultaSerie.getNum_temporadas());
                 jTextFieldEpisodios.setText(consultaSerie.getNum_episodios());
                 
-                jTextArea1.setText("La serie " + serieName + " se encuentra registrada.");
+                jTextArea1.setText("Se encontró la serie " + serieName + " en nuestro siste,ma.");
             }
             else
             {
@@ -284,7 +287,8 @@ public class VentanaSeries extends javax.swing.JFrame {
         }
         else
         {
-            jTextArea1.setText("Ingrese la serie a consultar.");
+            jTextArea1.setText("Por favor ingrese la serie a consultar.");
+
         }
               
     }//GEN-LAST:event_jButtonConsultarActionPerformed
@@ -297,7 +301,7 @@ public class VentanaSeries extends javax.swing.JFrame {
         String episodios = jTextFieldEpisodios.getText();
         
         if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()){
-            jTextArea1.setText("Datos incompletos!!!");
+            jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
 
         }else if (!NewSerie.validarSerie(titulo, serieRepositorio)){
                 NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
@@ -313,7 +317,7 @@ public class VentanaSeries extends javax.swing.JFrame {
                 
                 
                }else {
-                     jTextArea1.setText("Lo sentimos la serie ya se encuentra registrada.");
+                     jTextArea1.setText("Lo sentimos, la serie ya se encuentra registrada.");
             }
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
@@ -325,7 +329,7 @@ public class VentanaSeries extends javax.swing.JFrame {
         String episodios = jTextFieldEpisodios.getText();
         
         if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()){
-            jTextArea1.setText("Datos incompletos!!!");
+            jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
         }else if (NewSerie.validarSerie(titulo, serieRepositorio)){
                 NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
                 NewSerie.setNum_temporadas(jTextFieldTemporadas.getText());
@@ -361,12 +365,12 @@ public class VentanaSeries extends javax.swing.JFrame {
            }
            else
            {
-               jTextArea1.setText("Lo sentimos la serie " + serieName +" no se encuentra creada.");
+               jTextArea1.setText("Lo sentimos, la serie " + serieName +" no se encuentra creada.");
            }
        }
        else
        {
-           jTextArea1.setText("Ingrese el título de la serie a eliminar.");
+           jTextArea1.setText("Por favor ingrese el título de la serie a eliminar.");
            
        }
        //Prueba porque me lo tiré asdfghj
@@ -380,40 +384,6 @@ public class VentanaSeries extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VentanaSeries.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new VentanaSeries().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;

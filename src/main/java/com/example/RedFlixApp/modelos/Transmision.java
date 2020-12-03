@@ -3,7 +3,7 @@ package com.example.RedFlixApp.modelos;
 
 /**
  *
- * @author Andrés Candela
+ * @author RedFlix16 Team
  */
 import javax.persistence.Column;
 import javax.persistence.Entity;
