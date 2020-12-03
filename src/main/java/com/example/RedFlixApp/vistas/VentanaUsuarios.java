@@ -429,18 +429,18 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
                     try {
                         usuarioRepositorio.save(NewUsuario);
-                        jTextArea1.setText("Se registró correctamente el usuario " + jTextFieldUsername.getText());
+                        jTextArea1.setText("Se registró correctamente el usuario " + jTextFieldUsername.getText() + ".");
 
                     } catch (Exception e) {
                         jTextArea1.setText("Error al conectar con la BD");
                     }
 
                 } else {
-                    jTextArea1.setText("Lo sentimos el usuario no se encuentra disponible");
+                    jTextArea1.setText("Lo sentimos, el usuario no se encuentra disponible.");
                 }
 
             } else {
-                jTextArea1.setText("Número de celular inválido");
+                jTextArea1.setText("Número de celular inválido.");
             }
 
         } else {
@@ -464,9 +464,9 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         if (email.isEmpty() || usuario.isEmpty() || nombre.isEmpty()
                 || apellidos.isEmpty() || fecha.isEmpty() || celular.isEmpty()
                 || contrasenia.isEmpty()) {
-            jTextArea1.setText("Datos incompletos!!!");
+            jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
 
-        } else if (email.contains("@")) {
+        } else if (email.contains("@") && email.contains(".")) {
             if (tryParseInt(celular) && celular.length() <= 10) {
                 if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
                     NewUsuario.setEmail(email);
@@ -479,25 +479,25 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
                     try {
                         usuarioRepositorio.save(NewUsuario);
-                        jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText());
+                        jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText() + ".");
                         //MyRunner.crearUsuario(NewUsuario);ç
                         //                    MyRunner runner = new MyRunner();
                         //                    runner.crearUsuario(NewUsuario);
 
                     } catch (Exception e) {
-                        jTextArea1.setText("Error al conectar con la BD");
+                        jTextArea1.setText("Error al conectar con la BD.");
                     }
 
                 } else {
-                    jTextArea1.setText("Lo sentimos el usuario " + usuario + " no se encuentra creado.");
+                    jTextArea1.setText("Lo sentimos, el usuario " + usuario + " no se encuentra creado.");
                 }
 
             } else {
-                jTextArea1.setText("Número de celular inválido!!!");
+                jTextArea1.setText("Número de celular inválido. Por favor verifique e intente nuevamente.");
             }
 
         } else {
-            jTextArea1.setText("Email no válido.");
+            jTextArea1.setText("Email no válido. Por favor verifique.");
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
@@ -522,12 +522,12 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                 jTextFieldFecha.setText(consultaUsuario.getFecha_nacimiento());
                 jTextFieldCelular.setText(consultaUsuario.getCelular());
                 jPasswordField1.setText(consultaUsuario.getContrasenia());
-                jTextArea1.setText("El usuario " + username + " se encuentra registrado.");
+                jTextArea1.setText("El usuario " + username + " ya se encuentra registrado.");
             } else {
-                jTextArea1.setText("Lo sentimos el usuario " + username + " no se encuentra creado.");
+                jTextArea1.setText("Lo sentimos, el usuario " + username + " no se encuentra creado.");
             }
         } else {
-            jTextArea1.setText("Ingrese usuario a consultar.");
+            jTextArea1.setText("Por favor ingrese usuario a consultar.");
         }
 
     }//GEN-LAST:event_jButtonConsultarActionPerformed
@@ -543,13 +543,13 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                     jTextArea1.setText("Usuario " + username + " eliminado correctamente.");
                     //clear();
                 } catch (Exception e) {
-                    jTextArea1.setText("Error al conectar con la BD");
+                    jTextArea1.setText("Error al conectar con la BD.");
                 }
             } else {
-                jTextArea1.setText("Lo sentimos el usuario " + username + " no se encuentra creado.");
+                jTextArea1.setText("Lo sentimos, el usuario " + username + " no se encuentra creado.");
             }
         } else {
-            jTextArea1.setText("Ingrese username a eliminar.");
+            jTextArea1.setText("Por favor ingrese username a eliminar.");
         }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 

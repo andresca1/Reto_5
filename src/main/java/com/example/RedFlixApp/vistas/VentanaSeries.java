@@ -9,25 +9,22 @@ package com.example.RedFlixApp.vistas;
  *
  * @author RedFlix16 Team
  */
-
 import com.example.RedFlixApp.SpringContext;
 import com.example.RedFlixApp.modelos.Serie;
 import com.example.RedFlixApp.repositorios.SerieRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class VentanaSeries extends javax.swing.JFrame {
-    
+
     SerieRepositorio serieRepositorio;
 
     /**
      * Creates new form VentanaSeries
      */
-
-    
     public VentanaSeries() {
         initComponents();
         serieRepositorio = SpringContext.getBean(SerieRepositorio.class);
-        
+
         this.setLocationRelativeTo(null);
     }
 
@@ -269,28 +266,22 @@ public class VentanaSeries extends javax.swing.JFrame {
         // TODO add your handling code here:
         String serieName = jTextFieldTitulo.getText();
         Serie NewSerie = new Serie();
-        if(!serieName.isEmpty())
-        {
-            if(NewSerie.validarSerie(serieName, serieRepositorio))
-            {
+        if (!serieName.isEmpty()) {
+            if (NewSerie.validarSerie(serieName, serieRepositorio)) {
                 Serie consultaSerie = NewSerie.getDatos(serieName, serieRepositorio);
                 jTextFieldTitulo.setText(consultaSerie.getTitulo());
                 jTextFieldTemporadas.setText(consultaSerie.getNum_temporadas());
                 jTextFieldEpisodios.setText(consultaSerie.getNum_episodios());
-                
-                jTextArea1.setText("Se encontró la serie " + serieName + " en nuestro siste,ma.");
+
+                jTextArea1.setText("Se encontró la serie " + serieName + " en nuestro sistema.");
+            } else {
+                jTextArea1.setText("Lo sentimos, la serie " + serieName + " no se encuentra registrada.");
             }
-            else
-            {
-                jTextArea1.setText("Lo sentimos, la serie "+serieName +" no se encuentra registrada.");
-            }
-        }
-        else
-        {
+        } else {
             jTextArea1.setText("Por favor ingrese la serie a consultar.");
 
         }
-              
+
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
@@ -299,26 +290,25 @@ public class VentanaSeries extends javax.swing.JFrame {
         String titulo = jTextFieldTitulo.getText();
         String temporadas = jTextFieldTemporadas.getText();
         String episodios = jTextFieldEpisodios.getText();
-        
-        if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()){
+
+        if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()) {
             jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
 
-        }else if (!NewSerie.validarSerie(titulo, serieRepositorio)){
-                NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
-                NewSerie.setNum_temporadas(jTextFieldTemporadas.getText());
-                NewSerie.setTitulo(jTextFieldTitulo.getText());
-                
-                try {
-                    serieRepositorio.save(NewSerie);
-                    jTextArea1.setText("Se creó correctamente la serie " + jTextFieldTitulo.getText() + ".");
-                } catch (Exception e) {
-                jTextArea1.setText("Error al conectar con la BD");
-                }
-                
-                
-               }else {
-                     jTextArea1.setText("Lo sentimos, la serie ya se encuentra registrada.");
+        } else if (!NewSerie.validarSerie(titulo, serieRepositorio)) {
+            NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
+            NewSerie.setNum_temporadas(jTextFieldTemporadas.getText());
+            NewSerie.setTitulo(jTextFieldTitulo.getText());
+
+            try {
+                serieRepositorio.save(NewSerie);
+                jTextArea1.setText("Se creó correctamente la serie " + jTextFieldTitulo.getText() + ".");
+            } catch (Exception e) {
+                jTextArea1.setText("Error al conectar con la BD.");
             }
+
+        } else {
+            jTextArea1.setText("Lo sentimos, la serie ya se encuentra registrada.");
+        }
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
@@ -327,53 +317,46 @@ public class VentanaSeries extends javax.swing.JFrame {
         String titulo = jTextFieldTitulo.getText();
         String temporadas = jTextFieldTemporadas.getText();
         String episodios = jTextFieldEpisodios.getText();
-        
-        if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()){
+
+        if (titulo.isEmpty() || temporadas.isEmpty() || episodios.isEmpty()) {
             jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
-        }else if (NewSerie.validarSerie(titulo, serieRepositorio)){
-                NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
-                NewSerie.setNum_temporadas(jTextFieldTemporadas.getText());
-                NewSerie.setTitulo(jTextFieldTitulo.getText());
-                
-            
+        } else if (NewSerie.validarSerie(titulo, serieRepositorio)) {
+            NewSerie.setNum_episodios(jTextFieldEpisodios.getText());
+            NewSerie.setNum_temporadas(jTextFieldTemporadas.getText());
+            NewSerie.setTitulo(jTextFieldTitulo.getText());
+
             try {
                 serieRepositorio.save(NewSerie);
                 jTextArea1.setText("Se actualizó correctamente la serie " + jTextFieldTitulo.getText() + ".");
-                } catch (Exception e) {
-                jTextArea1.setText("Error al conectar con la BD");
-                }
-        }else {
-            jTextArea1.setText("La serie no se encuentra registrada, por lo tanto no se puede actualizar");
+            } catch (Exception e) {
+                jTextArea1.setText("Error al conectar con la BD.");
+            }
+        } else {
+            jTextArea1.setText("La serie no se encuentra registrada, por lo tanto no se puede actualizar.");
         }
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         // TODO add your handling code here:
-       String serieName = jTextFieldTitulo.getText();
-       Serie usuario = new Serie();
-       if(!serieName.isEmpty())
-       {
-           if(usuario.validarSerie(serieName, serieRepositorio))
-           {
-               try {
-                   serieRepositorio.deleteById(serieName);
-                   jTextArea1.setText("Serie " +serieName + " eliminada correctamente.");
-                   //clear();
-               } catch (Exception e) {
-                   jTextArea1.setText("Error al conectar con la BD");
-               }
-           }
-           else
-           {
-               jTextArea1.setText("Lo sentimos, la serie " + serieName +" no se encuentra creada.");
-           }
-       }
-       else
-       {
-           jTextArea1.setText("Por favor ingrese el título de la serie a eliminar.");
-           
-       }
-       //Prueba porque me lo tiré asdfghj
+        String serieName = jTextFieldTitulo.getText();
+        Serie usuario = new Serie();
+        if (!serieName.isEmpty()) {
+            if (usuario.validarSerie(serieName, serieRepositorio)) {
+                try {
+                    serieRepositorio.deleteById(serieName);
+                    jTextArea1.setText("Serie " + serieName + " eliminada correctamente.");
+                    //clear();
+                } catch (Exception e) {
+                    jTextArea1.setText("Error al conectar con la BD.");
+                }
+            } else {
+                jTextArea1.setText("Lo sentimos, la serie " + serieName + " no se encuentra creada.");
+            }
+        } else {
+            jTextArea1.setText("Por favor ingrese el título de la serie a eliminar.");
+
+        }
+        //Prueba porque me lo tiré asdfghj
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -382,8 +365,7 @@ public class VentanaSeries extends javax.swing.JFrame {
         jTextFieldTemporadas.setText("");
         jTextFieldEpisodios.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
