@@ -1,9 +1,8 @@
-
 package com.example.RedFlixApp.repositorios;
 
 /**
  *
- * @author Andrés Candela
+ * @author RedFlix16 Team
  */
 import com.example.RedFlixApp.modelos.Pelicula;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -5,16 +5,16 @@
  */
 package com.example.RedFlixApp.vistas;
 
+/**
+ *
+ * @author RedFlix16 Team
+ */
 import com.example.RedFlixApp.MyRunner;
 import com.example.RedFlixApp.SpringContext;
 import com.example.RedFlixApp.modelos.Usuario;
 import com.example.RedFlixApp.repositorios.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- *
- * @author USUARIO
- */
 public class VentanaUsuarios extends javax.swing.JFrame {
 
     /**
@@ -38,8 +38,8 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             return false;
         }
     }
-    public void clear()
-    {
+
+    public void clear() {
         jTextFieldEmail.setText("");
         jTextFieldUsername.setText("");
         jTextFieldNombres.setText("");
@@ -106,6 +106,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home.png"))); // NOI18N
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusable(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -191,7 +192,8 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/borrar-icon.png"))); // NOI18N
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setToolTipText("Limpiar formulario");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -320,8 +322,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(128, 128, 128)
-                                .addComponent(jLabelUsuario)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabelUsuario))))
                     .addComponent(jScrollPaneSalida)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -338,13 +339,15 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelUsuario))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jButton1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -411,9 +414,9 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         if (email.isEmpty() || usuario.isEmpty() || nombre.isEmpty()
                 || apellidos.isEmpty() || fecha.isEmpty() || celular.isEmpty()
                 || contrasenia.isEmpty()) {
-            jTextArea1.setText("Datos incompletos!!!");
+            jTextArea1.setText("¡Datos incompletos! Por favor diligencie todos los campos.");
 
-        } else if (email.contains("@")) {
+        } else if (email.contains("@") && email.contains(".")) {
             if (tryParseInt(celular) && celular.length() <= 10) {
                 if (!NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
                     NewUsuario.setEmail(email);
@@ -427,20 +430,17 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                     try {
                         usuarioRepositorio.save(NewUsuario);
                         jTextArea1.setText("Se registró correctamente el usuario " + jTextFieldUsername.getText());
-                        //MyRunner.crearUsuario(NewUsuario);ç
-//                    MyRunner runner = new MyRunner();
-//                    runner.crearUsuario(NewUsuario);
 
                     } catch (Exception e) {
                         jTextArea1.setText("Error al conectar con la BD");
                     }
-                    
+
                 } else {
                     jTextArea1.setText("Lo sentimos el usuario no se encuentra disponible");
                 }
 
             } else {
-                jTextArea1.setText("Número de celular inválido!!!");
+                jTextArea1.setText("Número de celular inválido");
             }
 
         } else {
@@ -452,7 +452,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         // TODO add your handling code here:
-        
+
         Usuario NewUsuario = new Usuario();
         String email = jTextFieldEmail.getText();
         String usuario = jTextFieldUsername.getText();
@@ -467,7 +467,7 @@ public class VentanaUsuarios extends javax.swing.JFrame {
             jTextArea1.setText("Datos incompletos!!!");
 
         } else if (email.contains("@")) {
-            if (tryParseInt(celular)&& celular.length() <= 10) {
+            if (tryParseInt(celular) && celular.length() <= 10) {
                 if (NewUsuario.validarUsuario(usuario, usuarioRepositorio)) {
                     NewUsuario.setEmail(email);
                     NewUsuario.setId_username(usuario);
@@ -481,15 +481,15 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                         usuarioRepositorio.save(NewUsuario);
                         jTextArea1.setText("Se actualizó correctamente el usuario " + jTextFieldUsername.getText());
                         //MyRunner.crearUsuario(NewUsuario);ç
-    //                    MyRunner runner = new MyRunner();
-    //                    runner.crearUsuario(NewUsuario);
+                        //                    MyRunner runner = new MyRunner();
+                        //                    runner.crearUsuario(NewUsuario);
 
                     } catch (Exception e) {
                         jTextArea1.setText("Error al conectar con la BD");
                     }
-                    
+
                 } else {
-                    jTextArea1.setText("Lo sentimos el usuario "+ usuario + " no se encuentra creado.");
+                    jTextArea1.setText("Lo sentimos el usuario " + usuario + " no se encuentra creado.");
                 }
 
             } else {
@@ -512,10 +512,8 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = jTextFieldUsername.getText();
         Usuario NewUsuario = new Usuario();
-        if(!username.isEmpty())
-        {
-            if(NewUsuario.validarUsuario(username, usuarioRepositorio))
-            {
+        if (!username.isEmpty()) {
+            if (NewUsuario.validarUsuario(username, usuarioRepositorio)) {
                 Usuario consultaUsuario = NewUsuario.getDatos(username, usuarioRepositorio);
                 jTextFieldUsername.setText(consultaUsuario.getId_username());
                 jTextFieldNombres.setText(consultaUsuario.getNombre());
@@ -525,44 +523,34 @@ public class VentanaUsuarios extends javax.swing.JFrame {
                 jTextFieldCelular.setText(consultaUsuario.getCelular());
                 jPasswordField1.setText(consultaUsuario.getContrasenia());
                 jTextArea1.setText("El usuario " + username + " se encuentra registrado.");
-            }
-            else
-            {
+            } else {
                 jTextArea1.setText("Lo sentimos el usuario " + username + " no se encuentra creado.");
             }
-        }
-        else
-        {
+        } else {
             jTextArea1.setText("Ingrese usuario a consultar.");
         }
-        
+
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         // TODO add your handling code here:
-       String username = jTextFieldUsername.getText();
-       Usuario usuario = new Usuario();
-       if(!username.isEmpty())
-       {
-           if(usuario.validarUsuario(username, usuarioRepositorio))
-           {
-               try {
-                   usuarioRepositorio.deleteById(username);
-                   jTextArea1.setText("Usuario " + username + " eliminado correctamente.");
-                   //clear();
-               } catch (Exception e) {
-                   jTextArea1.setText("Error al conectar con la BD");
-               }
-           }
-           else
-           {
-               jTextArea1.setText("Lo sentimos el usuario " + username +" no se encuentra creado.");
-           }
-       }
-       else
-       {
-           jTextArea1.setText("Ingrese username a eliminar.");
-       }
+        String username = jTextFieldUsername.getText();
+        Usuario usuario = new Usuario();
+        if (!username.isEmpty()) {
+            if (usuario.validarUsuario(username, usuarioRepositorio)) {
+                try {
+                    usuarioRepositorio.deleteById(username);
+                    jTextArea1.setText("Usuario " + username + " eliminado correctamente.");
+                    //clear();
+                } catch (Exception e) {
+                    jTextArea1.setText("Error al conectar con la BD");
+                }
+            } else {
+                jTextArea1.setText("Lo sentimos el usuario " + username + " no se encuentra creado.");
+            }
+        } else {
+            jTextArea1.setText("Ingrese username a eliminar.");
+        }
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -575,41 +563,6 @@ public class VentanaUsuarios extends javax.swing.JFrame {
         jTextFieldCelular.setText("");
         jPasswordField1.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VentanaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VentanaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VentanaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VentanaUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new VentanaUsuarios().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
